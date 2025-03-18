@@ -4,8 +4,6 @@ from datetime import datetime, timedelta, date
 import json
 import time
 
-print("\n==STARTING==\n")
-
 HOURLY_RATE = 50 # paycheck / 11 / 8
 DAILY_HOURS = 8
 
@@ -47,20 +45,24 @@ def required_hours():
 def daily_message(required_hours, weekly_hours):
     time_left = required_hours - weekly_hours
     if time_left <= 0:
-        return "You're done!! "
+        return "You're done!!"
     else:
         finished_at = datetime.now() + timedelta(hours=time_left)
         return "Finishing at:" + finished_at.strftime('%l:%M%p')
 
 def pay_today(daily_hours):
-    return f"${daily_hours * HOURLY_RATE}"
+    return f"${daily_hours * HOURLY_RATE} earned today"
 
 def main():
-    daily_hours = get_daily_hours()
-    weekly_hours = get_weekly_hours()
+    while True:
+        daily_hours = get_daily_hours()
+        weekly_hours = get_weekly_hours()
 
-    print(pay_today(4.3))
-    print(daily_message(required_hours(), weekly_hours))
+        os.system('clear')
+        print(pay_today(daily_hours))
+        print(daily_message(required_hours(), weekly_hours))
+        time.sleep(60)
+        print("Refreshing...")
 
 if __name__ == "__main__":
     main()
